@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USC Application for the Missing Marks</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #990000; /* USC Cardinal */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            background-color: #990000; /* USC Cardinal */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background-color: #B30000; /* Darker Cardinal */
+        }
+        .progress-bar {
+            width: 0;
+            height: 10px;
+            background-color: #4caf50;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 100%;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>USC Application for the Missing Marks</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Submit Your Request for Missing Marks</h2>
+            <form id="application-form" action="mailto:visitusc@usc.edu" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <label for="student-name">Your Full Name:</label>
+                <input type="text" id="student-name" name="student-name" required>
+
+                <label for="student-id">USC Student ID:</label>
+                <input type="text" id="student-id" name="student-id" required>
+
+                <label for="course">Course Name:</label>
+                <select id="course" name="course" required>
+                    <option value="" disabled selected>Select a USC course</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="History">History</option>
+                    <option value="Business">Business</option>
+                </select>
+
+                <label for="marks">Missing Marks Description:</label>
+                <textarea id="marks" name="marks" rows="4" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+
+            <div class="progress-bar" id="progress-bar"></div>
+            <div id="confirmation-message" style="display: none; color: green; margin-top: 15px;">Application submitted successfully! A USC representative will review your request shortly.</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 University of Southern California. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Form Validation
+        function validateForm() {
+            var name = document.getElementById('student-name').value;
+            var studentId = document.getElementById('student-id').value;
+            var course = document.getElementById('course').value;
+            var marks = document.getElementById('marks').value;
+
+            if (name == "" || studentId == "" || course == "" || marks == "") {
+                alert("Please fill out all fields.");
+                return false;
+            } else {
+                showProgress();
+                return true; // Allow form submission after validation
+            }
+        }
+
+        // Show progress bar during form submission
+        function showProgress() {
+            var progressBar = document.getElementById('progress-bar');
+            var width = 0;
+            var interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.getElementById('confirmation-message').style.display = 'block';
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                }
+            }, 50);
+        }
+    </script>
+
+</body>
+</html>
